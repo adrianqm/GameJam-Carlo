@@ -39,6 +39,7 @@ public class Zombie : MonoBehaviour
 
     void OnTriggerStay(Collider col){
         if(canHit && col.gameObject.CompareTag("Player")){
+           animator.SetBool("isAttacking", true); 
            OnDamagePlayer.Invoke(this);
            StartCoroutine("DelayBetweenHit", timeBetweenHit);
         }
