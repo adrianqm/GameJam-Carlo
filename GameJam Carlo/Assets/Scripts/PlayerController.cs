@@ -7,11 +7,17 @@ public class PlayerController : MonoBehaviour
     
     public GameObject bola;
     public Transform lanzador_bola;
+
+    Animator playerAnimator;
+
+    public float rotationVelocity = 4.0f;
     private Vector3 pos;
     private Quaternion targetRotation;
+    
     void Start(){
         pos  = transform.position;
         targetRotation = transform.rotation;
+        playerAnimator = GetComponent<Animator>();
     }
 
     void Update()
@@ -19,7 +25,7 @@ public class PlayerController : MonoBehaviour
         
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began){
-
+            playerAnimator.SetBool("isThrowing",true);
             // create ray from the camera and passing through the touch position:
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
             // create a logical plane at this object's position
@@ -31,11 +37,20 @@ public class PlayerController : MonoBehaviour
                 // pos has the position in the plane you've touched
                 //Instantiate(bola, pos, Quaternion.identity);
                 targetRotation = Quaternion.LookRotation(pos - transform.position, Vector3.up);
-                GameObject bullet = Instantiate(bola, lanzador_bola.position, targetRotation) as GameObject;
-                bullet.GetComponent<Rigidbody>().AddForce(pos*100);
-
+                
             }
-        }       
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime*2.0f); 
+        }     
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime*rotationVelocity);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+    }
+
+    void FixedUpdate(){
+        if(playerAnimator.GetBool("isThrowing") 
+            && (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f)
+            && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Throw Object")){
+            GameObject bullet = Instantiate(bola, lanzador_bola.position, targetRotation) as GameObject;
+            bullet.GetComponent<Rigidbody>().AddForce(pos*100);
+            playerAnimator.SetBool("isThrowing",false);      
+        }
     }
 }

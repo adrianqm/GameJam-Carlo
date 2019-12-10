@@ -25,10 +25,11 @@ public class PlayerManager : MonoBehaviour
 
     void Hit(int damage){
         health -= damage;
-        OnPlayerStatsUpdate.Invoke();
-
-        if(health <= 0)
+        if(health <= 0){
             Die();
+            health = 0;
+        }
+        OnPlayerStatsUpdate.Invoke();
     }
 
     void Die(){

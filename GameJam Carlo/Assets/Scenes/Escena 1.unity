@@ -697,7 +697,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 4.5905e-41, y: -1.0436123e+23, z: 3.21e-43, w: -0.0000000054775278}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1113,8 +1113,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sizeWave: 20
-  spawnDelay: 14.35
-  radio: 10
+  spawnDelay: 1.5
+  radio: 44
   zombie: {fileID: 3154817305115093848, guid: 862e05719b1c2474086b352c98ce9a3c, type: 3}
 --- !u!4 &1104789660
 Transform:
@@ -1711,6 +1711,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.y
       value: 4.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406584402, guid: 8946beb0fd5257342811f46df2eabd7b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.88
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8946beb0fd5257342811f46df2eabd7b, type: 3}
