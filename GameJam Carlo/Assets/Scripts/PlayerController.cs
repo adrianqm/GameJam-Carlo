@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    
     public GameObject bola;
     public Transform lanzador_bola;
     private Vector3 pos;
@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
             if (plane.Raycast(ray, out distance)){ // if plane hit...
                 pos = ray.GetPoint(distance); // get the point
                 // pos has the position in the plane you've touched
-                Debug.Log(pos);
                 //Instantiate(bola, pos, Quaternion.identity);
                 targetRotation = Quaternion.LookRotation(pos - transform.position, Vector3.up);
                 GameObject bullet = Instantiate(bola, lanzador_bola.position, targetRotation) as GameObject;

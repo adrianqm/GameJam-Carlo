@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4927332174010662746}
   - component: {fileID: 971111673330192214}
   - component: {fileID: 6548581831260914752}
+  - component: {fileID: -6255271680605853184}
   m_Layer: 0
   m_Name: Bola de nieve
   m_TagString: Untagged
@@ -108,3 +109,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-6255271680605853184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5211281869739968873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80f516d7bf5e3154b8e969e11bff60ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
+  particle: {fileID: 5383344390114206062, guid: 41581262e7cf14540b24bf1f02806ad6,
+    type: 3}
