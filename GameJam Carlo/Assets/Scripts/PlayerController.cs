@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     public float rotationVelocity = 4.0f;
     private Vector3 pos;
     private Quaternion targetRotation;
+
+    public float timeBetweenBall = 2;
+    private float timeBallCounter = 0;
     
     void Start(){
         pos  = transform.position;
@@ -22,9 +25,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
+        timeBallCounter += Time.deltaTime;
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began){
-            playerAnimator.SetBool("isThrowing",true);
+            if(timeBallCounter > timeBetweenBall){
+                playerAnimator.SetBool("isThrowing",true);
+                timeBallCounter = 0;
+            }
             // create ray from the camera and passing through the touch position:
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
             // create a logical plane at this object's position

@@ -8,6 +8,11 @@ public class Zombie : MonoBehaviour
     public delegate void ZombieDelegate(Zombie zombie);
     public static event ZombieDelegate OnZombieDeath;
     public static event ZombieDelegate OnDamagePlayer;
+    private GameObject child;
+    private SkinnedMeshRenderer zombie_mesh;
+
+    public AudioSource deadSound;
+
 
     Animator animator;
 
@@ -21,7 +26,21 @@ public class Zombie : MonoBehaviour
     bool canHit = true;
 
     void Awake(){
-        animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();     
+    }
+
+    void Start(){
+        child =  this.transform.GetChild(1).gameObject;
+        zombie_mesh = child.GetComponent<SkinnedMeshRenderer>();
+    }
+
+    void Update(){
+        if(!animator.GetBool("isAlive")){
+
+            Color color = zombie_mesh.material.color;
+            color.a -= Time.deltaTime * 5.0f;
+            zombie_mesh.material.color = color;
+        }
     }
 
     public void Hit(float damage){
@@ -32,6 +51,7 @@ public class Zombie : MonoBehaviour
 
     void Die(){
         animator.SetBool("isAlive", false);
+        deadSound.Play();
         GetComponent<Collider>().enabled = false;
         GetComponent<NavMeshAgent>().enabled = false;
         OnZombieDeath.Invoke(this);

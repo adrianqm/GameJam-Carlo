@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
     }
 
     void UpdateScore(){
-        score.text = GameManager.instance.GetScore().ToString();
+        score.text = "Score: " + GameManager.instance.GetScore().ToString();
     }
 
     void UpdateHealth(){

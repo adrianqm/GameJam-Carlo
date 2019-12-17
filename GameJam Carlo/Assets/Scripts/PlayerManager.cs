@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -8,7 +9,10 @@ public class PlayerManager : MonoBehaviour
 
     public delegate void PlayerDelegate();
     public static event PlayerDelegate OnPlayerStatsUpdate;
-    public int health = 10;
+
+    public Image healthBar;
+    private float startHealth;
+    public int health;
     
     void Awake(){
         if(instance == null)
@@ -17,6 +21,7 @@ public class PlayerManager : MonoBehaviour
 
     void Start(){
         Zombie.OnDamagePlayer += OnDamagePlayer;
+        startHealth = health;
     }
     
     void OnDamagePlayer(Zombie zombie){
@@ -25,6 +30,8 @@ public class PlayerManager : MonoBehaviour
 
     void Hit(int damage){
         health -= damage;
+        healthBar.fillAmount = health / startHealth;
+        Debug.Log(healthBar.fillAmount);
         if(health <= 0){
             Die();
             health = 0;
