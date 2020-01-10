@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController1 : MonoBehaviour
 {
     
     public GameObject bola;
@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
     Animator playerAnimator;
 
     public float rotationVelocity = 4.0f;
-    private Vector3 pos;
-    private Quaternion targetRotation;
+    public Vector3 pos;
+    public Quaternion targetRotation;
 
     public float timeBetweenBall = 2;
     private float timeBallCounter = 0;

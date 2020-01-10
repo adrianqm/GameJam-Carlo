@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     public delegate void SpawnDelegate();
     public static event SpawnDelegate OnStatsUpdate;
 
+    private Animator playerAnimator;
+    private AudioSource cumbia;
+
     int score;
     int zombiesAlive;
 
@@ -19,15 +22,21 @@ public class GameManager : MonoBehaviour
 
     void Start(){
         Zombie.OnZombieDeath += OnZombieDeath;
-
         score = 0;
         zombiesAlive = SpawnManager.instance.sizeWave;
+       // playerAnimator = FindObjectOfType<PlayerController>().GetComponent<Animator>();
+     //   cumbia = FindObjectOfType<PlayerController>().GetComponent<AudioSource>();
     }
 
     void OnZombieDeath(Zombie zombie){
         AddPoints(zombie.points);
         SubZombiesAlive();
         OnStatsUpdate.Invoke();
+
+        if(zombiesAlive <= 0){
+            playerAnimator.SetBool("isDancing",true);
+            cumbia.Play();
+        }
     }
 
     void AddPoints(int points){

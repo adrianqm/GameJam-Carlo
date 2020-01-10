@@ -13,6 +13,8 @@ public class PlayerManager : MonoBehaviour
     public Image healthBar;
     private float startHealth;
     public int health;
+
+    public Animator playerAnimator;
     
     void Awake(){
         if(instance == null)
@@ -22,6 +24,7 @@ public class PlayerManager : MonoBehaviour
     void Start(){
         Zombie.OnDamagePlayer += OnDamagePlayer;
         startHealth = health;
+        playerAnimator = GetComponent<Animator>();
     }
     
     void OnDamagePlayer(Zombie zombie){
@@ -35,11 +38,14 @@ public class PlayerManager : MonoBehaviour
         if(health <= 0){
             Die();
             health = 0;
+           
         }
         OnPlayerStatsUpdate.Invoke();
     }
 
     void Die(){
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        playerAnimator.SetTrigger("Die");
+        Zombie.OnDamagePlayer -= OnDamagePlayer;
     }
 }

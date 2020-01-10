@@ -36,11 +36,21 @@ public class Zombie : MonoBehaviour
 
     void Update(){
         if(!animator.GetBool("isAlive")){
-
+            changeToTransparent(zombie_mesh.material);
             Color color = zombie_mesh.material.color;
             color.a -= Time.deltaTime * 5.0f;
             zombie_mesh.material.color = color;
         }
+    }
+
+    public void changeToTransparent(Material standardShaderMaterial){
+        standardShaderMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        standardShaderMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        standardShaderMaterial.SetInt("_ZWrite", 0);
+        standardShaderMaterial.DisableKeyword("_ALPHATEST_ON");
+        standardShaderMaterial.DisableKeyword("_ALPHABLEND_ON");
+        standardShaderMaterial.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+        standardShaderMaterial.renderQueue = 3000;
     }
 
     public void Hit(float damage){

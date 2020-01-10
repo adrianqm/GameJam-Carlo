@@ -12,6 +12,8 @@ public class SpawnManager : MonoBehaviour
     
     public GameObject zombie;
 
+    private Animator playerAnimator;
+
     void Awake(){
         if(instance == null)
             instance = this;

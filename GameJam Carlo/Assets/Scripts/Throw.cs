@@ -4,23 +4,31 @@ using UnityEngine;
 
 public class Throw : StateMachineBehaviour
 {
+    bool hasThrown;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        hasThrown = false;
+        animator.gameObject.GetComponent<ThrowController>().slingShoot_anim.SetBool("Shoot", true);
+    }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+         if(stateInfo.normalizedTime >= 0.35f && !hasThrown){
+            animator.gameObject.GetComponent<ThrowController>().ThrowBall();
+            hasThrown = true;
+            animator.SetBool("isThrowing", false);    
+            animator.gameObject.GetComponent<ThrowController>().slingShoot_anim.SetBool("Shoot", false);
+        }
+    }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
         
-    //}
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
